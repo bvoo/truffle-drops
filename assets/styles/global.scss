@@ -1,0 +1,154 @@
+@import './scrollbars.scss';
+
+// dont know why this doesnt work
+// $gradient-from-light: hsl(336, 90%, 60%);
+// $gradient-to-light: hsl(185, 80%, 55%);
+// $gradient-from-dark: hsl(336, 83%, 80%);
+// $gradient-to-dark: hsl(185, 72%, 66%);
+
+:root {
+  --navbar-height: 4rem;
+
+  --bg-primary: hsl(0, 0%, 98%);
+  --bg-semi-primary: hsl(0, 0%, 95%);
+  --bg-secondary: hsl(222, 5%, 85%);
+  --bg-tertiary: hsl(222, 5%, 80%);
+  --text-primary: hsl(243, 14%, 29%);
+  --text-secondary: hsl(243, 14%, 39%);
+
+  // preprocessor not preprocessing
+  // --gradient-from-disabled: darken(hsl(336, 90%, 60%), 10);
+  // --gradient-to-disabled: darken(hsl(185, 80%, 55%), 10);
+  // --gradient-from: hsl(336, 90%, 60%);
+  // --gradient-to: hsl(185, 80%, 55%);
+  // --gradient-from-hover: lighten(hsl(336, 90%, 60%), 10);
+  // --gradient-to-hover: lighten(hsl(185, 80%, 55%), 10);
+  // --gradient-from-active: lighten(hsl(336, 90%, 60%), 12);
+  // --gradient-to-active: lighten(hsl(185, 80%, 55%), 12);
+  --gradient-from-disabled: hsl(336, 90%, 50%);
+  --gradient-to-disabled: hsl(185, 80%, 45%);
+  --gradient-from: hsl(336, 90%, 60%);
+  --gradient-to: hsl(185, 80%, 55%);
+  --gradient-from-hover: hsl(336, 90%, 70%);
+  --gradient-to-hover: hsl(185, 80%, 65%);
+  --gradient-from-active: hsl(336, 90%, 72%);
+  --gradient-to-active: hsl(185, 80%, 67%);
+}
+
+.dark {
+  --bg-primary: hsl(0, 0%, 8%);
+  --bg-semi-primary: hsl(0, 0%, 10%);
+  --bg-secondary: hsl(0, 0%, 14%);
+  --bg-tertiary: hsl(0, 0%, 20%);
+  --text-primary: hsl(240, 7%, 97%);
+  --text-secondary: hsla(0, 0%, 100%, 0.54);
+
+  // preprocessor not preprocessing
+  // --gradient-from-disabled: darken(hsl(336, 83%, 80%), 10);
+  // --gradient-to-disabled: darken(hsl(185, 72%, 66%), 10);
+  // --gradient-from: hsl(336, 83%, 80%);
+  // --gradient-to: hsl(185, 72%, 66%);
+  // --gradient-from-hover: lighten(hsl(336, 83%, 80%), 10);
+  // --gradient-to-hover: lighten(hsl(185, 72%, 66%), 10);
+  // --gradient-from-active: lighten(hsl(336, 83%, 80%), 12);
+  // --gradient-to-active: lighten(hsl(185, 72%, 66%), 12);
+  --gradient-from-disabled: hsl(336, 33%, 60%);
+  --gradient-to-disabled: hsl(185, 22%, 46%);
+  --gradient-from: hsl(336, 83%, 80%);
+  --gradient-to: hsl(185, 72%, 66%);
+  --gradient-from-hover: hsl(336, 83%, 85%);
+  --gradient-to-hover: hsl(185, 72%, 71%);
+  --gradient-from-active: hsl(336, 83%, 87%);
+  --gradient-to-active: hsl(185, 72%, 73%);
+}
+
+body {
+  @apply bg-primary font-sans h-screen text-primary w-screen overflow-hidden;
+
+  & > div {
+    @apply flex flex-col h-screen w-screen items-center;
+  }
+}
+
+.app {
+  @apply flex flex-col h-screen w-screen items-center overflow-hidden;
+}
+
+section {
+  @apply flex flex-col h-full w-full lg:max-w-1200px;
+}
+
+main {
+  @apply w-full;
+
+  height: calc(100% - var(--navbar-height, 4rem));
+}
+
+main > .os-viewport {
+  @apply flex flex-col h-full w-screen overflow-y-auto items-center;
+}
+
+// z -2             | z -1            | z > 0
+// background color | noise overlayed | content
+.bg-noise {
+  @apply relative;
+
+  // bg behind noise
+  &::before {
+    @apply transition-colors top-0 right-0 bottom-0 left-0 -z-2 duration-200 absolute;
+    content: '';
+
+    background-color: var(--noise-bg);
+  }
+
+  // noise texture
+  &::after {
+    @apply bg-repeat opacity-[0.03] top-0 right-0 bottom-0 left-0 -z-1 absolute;
+    content: '';
+
+    background-image: url('@/assets/noise.png');
+    background-size: 182px;
+  }
+}
+
+.bg-noise.hoverable {
+  &:hover.disabled::before {
+    // background-color: hsl(250, 24%, 9%);
+    background-color: var(--noise-bg);
+  }
+
+  &:hover::before {
+    background-color: var(--noise-bg-hover);
+  }
+}
+
+.overlay {
+  @apply top-0 right-0 bottom-0 left-0 absolute;
+}
+
+.placeholder-image {
+  @apply rounded-full h-full w-full;
+  background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='none' d='M-1-1h582v402H-1z'/%3E%3Cg%3E%3Cpath d='M16 8a4 4 0 014 4 4 4 0 01-4 4 4 4 0 01-4-4 4 4 0 014-4m0 10c4.42 0 8 1.79 8 4v2H8v-2c0-2.21 3.58-4 8-4z' fill='%2343aa8b'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: auto 100%;
+}
+
+button:disabled {
+  --tw-gradient-stops: var(--gradient-from-disabled), var(--gradient-to-disabled, rgba(255, 255, 255, 0));
+  @apply bg-gradient-to-r;
+}
+
+button:disabled:hover {
+  --tw-gradient-stops: var(--gradient-from-disabled), var(--gradient-to-disabled, rgba(255, 255, 255, 0));
+  @apply bg-gradient-to-r cursor-not-allowed;
+}
+
+button {
+  --tw-gradient-stops: var(--gradient-from), var(--gradient-to, rgba(255, 255, 255, 0));
+
+  @apply bg-gradient-to-r border-none rounded-md font-medium shadow-md text-black py-1 px-2;
+}
+
+button:hover {
+  --tw-gradient-stops: var(--gradient-from-hover), var(--gradient-to-hover, rgba(255, 255, 255, 0));
+  @apply bg-gradient-to-r;
+}

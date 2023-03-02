@@ -1,0 +1,31 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "^0.2.5",
+    "nuxt": "npm:nuxt3@latest",
+    "prettier": "^2.8.4",
+    "sass": "^1.58.3",
+    "supabase": "^1.40.3"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "@nuxtjs/color-mode": "^3.2.0",
+    "@nuxtjs/google-fonts": "^3.0.0-1",
+    "@nuxtjs/supabase": "^0.3.1",
+    "@tanstack/vue-table": "^8.7.9",
+    "@trufflehq/sdk": "0.0.8-alpha.1",
+    "dayjs": "1.11.7",
+    "nuxt-icon": "^0.3.2",
+    "nuxt-windicss": "^2.6.0",
+    "overlayscrollbars": "^2.1.0",
+    "overlayscrollbars-vue": "^0.5.1"
+  },
+  "packageManager": "yarn@3.4.1"
+}
